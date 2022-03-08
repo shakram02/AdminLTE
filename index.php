@@ -25,7 +25,7 @@ require_once "scripts/pi-hole/php/gravity.php";
                 <h3 class="statistic"><span id="dns_queries_today">---</span></h3>
             </div>
             <div class="icon">
-                <i class="fas fa-globe-americas"></i>
+                <i class="fas fa-globe-africa"></i>
             </div>
         </div>
     </div>

@@ -113,7 +113,9 @@ elseif (isset($_GET['list']))
 		case 'regex_white':
 			$_POST['type'] = ListType::regex_whitelist;
 			break;
-
+		case 'adlist':
+			$_POST['type'] = null;
+			break;
 		default:
 			die("Invalid list [supported: black, regex_black, white, regex_white]");
 	}
@@ -131,6 +133,25 @@ elseif (isset($_GET['list']))
 		$_POST['domain'] = $_GET['sub'];
 		$_POST['action'] = 'delete_domain_string';
 		require("scripts/pi-hole/php/groups.php");
+	}
+	elseif (isset($_GET['get_adlists']))
+	{
+		$_POST['action'] = 'get_adlists';
+		require("scripts/pi-hole/php/groups.php");
+	}
+	elseif (isset($_GET['add_adlist']))
+	{
+		$_POST['action'] = 'add_adlist';
+		$_POST['address'] = $_GET['add_adlist'];
+		require("scripts/pi-hole/php/groups.php");
+		require("scripts/pi-hole/php/silent_restart_gravity.sh.php");
+	}
+	elseif(isset($_GET['delete_adlist']))
+	{
+		$_POST['action'] = 'delete_adlist';
+		$_POST['id'] = $_GET['delete_adlist'];
+		require("scripts/pi-hole/php/groups.php");
+		require("scripts/pi-hole/php/silent_restart_gravity.sh.php");
 	}
 	else
 	{
@@ -201,4 +222,5 @@ if(isset($_GET["jsonForceObject"])) {
 } else {
     echo json_encode($data);
 }
+
 ?>
