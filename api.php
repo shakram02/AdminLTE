@@ -21,16 +21,16 @@ $data = array();
 if (isset($_GET['status'])) {
     $data = array_merge($data, array("status" => piholeStatusAPI()));
 } elseif (isset($_GET['enable']) && $auth) {
-	if(isset($_GET["auth"]))
-	{
-	if($_GET["auth"] !== $pwhash)
-		die("Not authorized!");
-	}
-	else
-	{
-		// Skip token validation if explicit auth string is given
-		check_csrf($_GET['token']);
-	}
+	// if(isset($_GET["auth"]))
+	// {
+	// if($_GET["auth"] !== $pwhash)
+	// 	die("Not authorized!");
+	// }
+	// else
+	// {
+	// 	// Skip token validation if explicit auth string is given
+	// 	check_csrf($_GET['token']);
+	// }
 	pihole_execute('enable');
 	$data = array_merge($data, array("status" => "enabled"));
 	if (file_exists("../custom_disable_timer"))
@@ -40,16 +40,16 @@ if (isset($_GET['status'])) {
 }
 elseif (isset($_GET['disable']) && $auth)
 {
-	if(isset($_GET["auth"]))
-	{
-		if($_GET["auth"] !== $pwhash)
-			die("Not authorized!");
-	}
-	else
-	{
-		// Skip token validation if explicit auth string is given
-		check_csrf($_GET['token']);
-	}
+	// if(isset($_GET["auth"]))
+	// {
+	// 	if($_GET["auth"] !== $pwhash)
+	// 		die("Not authorized!");
+	// }
+	// else
+	// {
+	// 	// Skip token validation if explicit auth string is given
+	// 	check_csrf($_GET['token']);
+	// }
 	$disable = intval($_GET['disable']);
 	// intval returns the integer value on success, or 0 on failure
 	if($disable > 0)
@@ -112,6 +112,9 @@ elseif (isset($_GET['list']))
 			break;
 		case 'regex_white':
 			$_POST['type'] = ListType::regex_whitelist;
+			break;
+		case 'blockables':
+			$_POST['type'] = $_GET['type'];
 			break;
 		case 'adlist':
 			$_POST['type'] = null;
@@ -222,5 +225,3 @@ if(isset($_GET["jsonForceObject"])) {
 } else {
     echo json_encode($data);
 }
-
-?>
